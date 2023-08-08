@@ -10,7 +10,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Run a project
-python manage.py runserver
+python manage.py runserver --settings=config.settings.local
+
+# Redis setup
+echo "docker run -it --rm --name redis -p 6379:6379 redis"
 
 echo "Installation complete!"
 
