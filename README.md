@@ -1,4 +1,4 @@
-# Your Project Name API
+# CogniSync API
 
 Welcome to the API documentation for CognySync! This document outlines the available API routes for managing products.
 
