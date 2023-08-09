@@ -30,7 +30,8 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'easy_thumbnails'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -100,7 +101,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -117,8 +123,17 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOWED_ALL_ORIGINS = True
 
-REST_FRAMEWORK = {
+"""REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
+}"""
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'small': {'size': (100, 100), 'crop': True},
+        'medium': {'size': (300, 300), 'crop': False},
+    },
 }
