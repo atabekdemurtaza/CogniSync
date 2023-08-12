@@ -15,5 +15,8 @@ python manage.py runserver --settings=config.settings.local
 # Redis setup
 echo "docker run -it --rm --name redis -p 6379:6379 redis"
 
+# Test a request
+echo "curl http://localhost:8000/api/products/ | json_pp"
+
 echo "Installation complete!"
 

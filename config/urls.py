@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path(route='admin/', view=admin.site.urls),
-    path(route='api/', view=include('orbit.urls')),
+    path(route='api/', view=include('orbit.urls', namespace='orbit')),
     path(route='api-auth/', view=include('rest_framework.urls'))
 ]
 

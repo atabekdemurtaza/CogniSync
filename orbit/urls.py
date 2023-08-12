@@ -1,9 +1,19 @@
 from django.urls import path
-from . import views
+from .views import function_views
+from .views import class_views as views
 
+app_name = 'orbit'
 
 urlpatterns = [
-    path(route='', view=views.getRoutes, name='routes'),
-    path(route='products/', view=views.getProducts, name='products'),
-    path(route='products/<str:pk>/', view=views.getProduct, name='product'),
+    path(route='', view=function_views.getRoutes, name='routes'),
+    path(
+        route='products/',
+        view=views.ProductListView.as_view(),
+        name='products'
+    ),
+    path(
+        route='products/<str:pk>/',
+        view=views.ProductDetailView.as_view(),
+        name='product'
+    ),
 ]

@@ -1,12 +1,14 @@
-from .products import products
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from ..models import Product
+from ..api.serializers import ProductSerializer
 
 
 @api_view(http_method_names=['GET'])
 def getRoutes(request):
     routes = [
         '/api/products/',
+        '/api/category/',
         '/api/products/create/',
         '/api/products/upload/',
         '/api/products/<id>/reviews/',
@@ -22,17 +24,13 @@ def getRoutes(request):
 
 @api_view(http_method_names=['GET'])
 def getProducts(request):
-    return Response(
-        products,
-    )
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
 
 @api_view(http_method_names=['GET'])
 def getProduct(request, pk):
-    product = None
-    for i in products:
-        if i['_id'] == pk:
-            product = i
-            break
-
-    return Response(product)
+    product = Product.objects.get(id=pk)
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
