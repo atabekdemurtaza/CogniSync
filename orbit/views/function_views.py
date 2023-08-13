@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from ..models import Product
-from ..api.serializers import ProductSerializer
+from ..api.serializers import ProductSerializer, UserSerializer
 
 
 @api_view(http_method_names=['GET'])
@@ -16,6 +16,7 @@ def getRoutes(request):
         '/api/products/<id>/',
         '/api/products/delete/<id>/',
         '/api/products/<update>/<id>/',
+        '/api/users/profile/'
     ]
     return Response(
         routes
@@ -33,4 +34,11 @@ def getProducts(request):
 def getProduct(request, pk):
     product = Product.objects.get(id=pk)
     serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
+
+
+@api_view(http_method_names=['GET'])
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
