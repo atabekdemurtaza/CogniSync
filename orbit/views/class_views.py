@@ -1,6 +1,7 @@
 from rest_framework import generics
 from orbit.models import Product, Category
 from orbit.api.serializers import ProductSerializer, CategorySerializer
+from orbit.api.serializers import UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.viewsets import ModelViewSet
@@ -11,8 +12,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        data['username'] = self.user.username
-        data['email'] = self.user.email
+        serializer = UserSerializerWithToken(self.user).data
+        for k, v in serializer.items():
+            data[k] = v
         return data
 
 
